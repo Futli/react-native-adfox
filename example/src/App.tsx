@@ -16,6 +16,7 @@ export default class ExampleAd extends Component {
           <BannerView
             adUnitId={'demo-banner-yandex'}
             size={'BANNER_300x300'}
+            parameters={{}}
             onLoad={() => console.log('onLoad')}
             onLeftApplication={() => console.log('onLeftApplication')}
             onReturnedToApplication={() =>
