@@ -12,8 +12,7 @@ type AdType =
 interface NativeBannerViewProps {
   size: string;
   adUnitId: string;
-  categoryId: string;
-  regionId: string;
+  parameters: object;
   onError?: Function;
   onLoad?: Function;
   onLeftApplication?: Function;
@@ -24,8 +23,7 @@ interface NativeBannerViewProps {
 interface BannerViewProps {
   size: AdType;
   adUnitId: string;
-  categoryId: string;
-  regionId: string;
+  parameters: object;
   onError?: Function;
   onLoad?: Function;
   onLeftApplication?: Function;
@@ -61,8 +59,7 @@ const BannerView = (props: BannerViewProps) => {
   const {
     size,
     adUnitId,
-    categoryId,
-    regionId,
+    parameters,
     onError,
     onLoad,
     onLeftApplication,
@@ -77,8 +74,7 @@ const BannerView = (props: BannerViewProps) => {
     <RNBannerView
       adUnitId={adUnitId}
       size={size}
-      categoryId={categoryId}
-      regionId={regionId}
+      parameters={parameters}
       onError={onError}
       onLoad={onLoad}
       onLeftApplication={onLeftApplication}

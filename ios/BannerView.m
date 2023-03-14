@@ -24,6 +24,12 @@
     [self createViewIfCan];
 }
 
+- (void)setParameters:(NSObject *)parameters
+{
+    _parameters = parameters;
+    [self createViewIfCan];
+}
+
 - (void)createViewIfCan
 {
     if (!_adUnitId || !_size) {
@@ -40,31 +46,12 @@
     adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
     adView.delegate = self;
 
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    parameters[@"adf_ownerid"] = @"286359";
-    parameters[@"adf_pp"] = @"g";
-    parameters[@"adf_ps"] = @"ghwp";
-    parameters[@"adf_p2"] = @"fhmf";
-    parameters[@"adf_pt"] = @"b";
-    parameters[@"adf_pd"] = @"";
-    parameters[@"adf_pw"] = @"";
-    parameters[@"adf_pv"] = @"";
-    parameters[@"adf_prr"] = @"";
-    parameters[@"adf_pdw"] = @"";
-    parameters[@"adf_pdh"] = @"";
-    parameters[@"adf_puid1"] = @"1495";
-    parameters[@"adf_puid2"] = @"563";
 
     YMAMutableAdRequest *request = [[YMAMutableAdRequest alloc] init];
-    request.age = age;
-    request.contextQuery = contextQuery;
-    request.contextTags = contextTags;
-    request.gender = gender;
-    request.location = location;
-    request.parameters = parameters;
-    [self.adView loadAdWithRequest:request];
+    
+    requestConfiguration.parameters = _parameters;
 
-    [adView loadAd];
+    [adView loadAdWithRequest:request];
 
     [self addSubview:adView];
 
