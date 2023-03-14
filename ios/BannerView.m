@@ -5,6 +5,7 @@
 @interface BannerView () <YMAAdViewDelegate>
 
 @property (nonatomic, strong) YMAAdView *adView;
+@property (nonatomic, copy, readonly, nullable) NSDictionary<NSString *, NSString *> *parameters;
 
 @end
 
@@ -23,23 +24,8 @@
     [self createViewIfCan];
 }
 
-- (void)setCategoryId:(NSString *)categoryId
-{
-    _categoryId = categoryId;
-    [self createViewIfCan];
-}
-
-- (void)setRegionId:(NSString *)regionId
-{
-    _regionId = regionId;
-    [self createViewIfCan];
-}
-
 - (void)createViewIfCan
 {
-
-    
-
     if (!_adUnitId || !_size) {
         return;
     }
@@ -50,6 +36,9 @@
 
     YMAAdSize *adSize = [YMAAdSize fixedSizeWithCGSize: [self getSize: _size]];
     YMAAdView *adView = [[YMAAdView alloc] initWithAdUnitID:_adUnitId adSize:adSize];
+
+    adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
+    adView.delegate = self;
 
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     parameters[@"adf_ownerid"] = @"286359";
@@ -63,17 +52,19 @@
     parameters[@"adf_prr"] = @"";
     parameters[@"adf_pdw"] = @"";
     parameters[@"adf_pdh"] = @"";
-    parameters[@"adf_puid1"] = _categoryId;
-    parameters[@"adf_puid2"] = _regionId;
+    parameters[@"adf_puid1"] = @"1495";
+    parameters[@"adf_puid2"] = @"563";
 
     YMAMutableAdRequest *request = [[YMAMutableAdRequest alloc] init];
-
-    adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
-    adView.delegate = self;
-
+    request.age = age;
+    request.contextQuery = contextQuery;
+    request.contextTags = contextTags;
+    request.gender = gender;
+    request.location = location;
     request.parameters = parameters;
+    [self.adView loadAdWithRequest:request];
 
-    [self.adView loadAdWithRequest:YMAMutableAdRequest];
+    [adView loadAd];
 
     [self addSubview:adView];
 
