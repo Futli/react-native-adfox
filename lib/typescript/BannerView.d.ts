@@ -4,8 +4,7 @@ type AdType = 'BANNER_300x250' | 'BANNER_300x300' | 'BANNER_320x50' | 'BANNER_32
 interface BannerViewProps {
     size: AdType;
     adUnitId: string;
-    categoryId: string;
-    regionId: string;
+    parameters: object;
     onError?: Function;
     onLoad?: Function;
     onLeftApplication?: Function;
