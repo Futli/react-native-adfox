@@ -27,6 +27,7 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
   private BannerAdView myAdView;
   private String mAdUnitId;
   private AdSize mSize;
+  private Object parameters;
   private RCTEventEmitter mEventEmitter;
 
   public BannerView(ThemedReactContext context) {
@@ -41,6 +42,12 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
     createAdViewIfCan();
   }
 
+  public void setParameters(Object parameters) {
+    mParameters = parameters;
+    createAdViewIfCan();
+  }
+  
+
   public void setSize(AdSize size) {
     mSize = size;
     createAdViewIfCan();
@@ -53,8 +60,10 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
       myAdView.setAdUnitId(mAdUnitId);
       myAdView.setAdSize(mSize);
 
+      // Код из интерфейса Adfox для работы с прямыми кампаниями.
+
       // Создание объекта таргетирования рекламы.
-      final AdRequest adRequest = new AdRequest.Builder().build();
+      final AdRequest adRequest = AdRequest.builder().withParameters(mParameters).build();
 
       // Регистрация слушателя для отслеживания событий, происходящих в баннерной рекламе.
       myAdView.setBannerAdEventListener(this);

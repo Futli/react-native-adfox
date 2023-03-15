@@ -17,6 +17,11 @@ public class BannerViewManager extends SimpleViewManager<BannerView> {
     view.setAdUnitId(adUnitId);
   }
 
+  @ReactProp(name = "parameters")
+  public void setParameters(BannerView view, Object parameters) {
+    view.setParameters(parameters);
+  }
+
   @ReactProp(name = "size")
   public void setSize(BannerView view, String size) {
     AdSize adSize;

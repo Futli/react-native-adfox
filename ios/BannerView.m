@@ -49,7 +49,7 @@
 
     YMAMutableAdRequest *request = [[YMAMutableAdRequest alloc] init];
     
-    requestConfiguration.parameters = _parameters;
+    request.parameters = _parameters;
 
     [adView loadAdWithRequest:request];
 
