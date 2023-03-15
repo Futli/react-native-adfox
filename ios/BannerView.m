@@ -5,7 +5,6 @@
 @interface BannerView () <YMAAdViewDelegate>
 
 @property (nonatomic, strong) YMAAdView *adView;
-@property (nonatomic, copy, readonly, nullable) NSDictionary<NSString *, NSString *> *parameters;
 
 @end
 
