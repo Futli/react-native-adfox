@@ -23,7 +23,7 @@
     [self createViewIfCan];
 }
 
-- (void)setParameters:(NSObject *)parameters
+- (void)setParameters:(NSDictionary *)parameters
 {
     _parameters = parameters;
     [self createViewIfCan];
@@ -38,19 +38,22 @@
     if (_adView) {
         [_adView removeFromSuperview];
     }
-
-    YMAAdSize *adSize = [YMAAdSize fixedSizeWithCGSize: [self getSize: _size]];
+    
+    YMAAdSize *adSize = [YMAAdSize flexibleSizeWithCGSize: [self getSize: _size]];
     YMAAdView *adView = [[YMAAdView alloc] initWithAdUnitID:_adUnitId adSize:adSize];
-
+    
     adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
     adView.delegate = self;
-
-
-    YMAMutableAdRequest *request = [[YMAMutableAdRequest alloc] init];
     
-    request.parameters = _parameters;
+    if(!_parameters) {
+        [adView loadAd];
+    }
+    else {
+        YMAMutableAdRequest *request = [[YMAMutableAdRequest alloc] init];
+        request.parameters = _parameters;
 
-    [adView loadAdWithRequest:request];
+        [adView loadAdWithRequest:request];
+    }
 
     [self addSubview:adView];
 

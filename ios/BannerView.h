@@ -10,7 +10,7 @@
 
 @property (nonatomic, strong) NSString *size;
 @property (nonatomic, strong) NSString *adUnitId;
-@property (nonatomic, strong) NSObject *parameters;
+@property (nonatomic, strong) NSDictionary *parameters;
 
 
 @end

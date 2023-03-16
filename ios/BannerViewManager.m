@@ -13,8 +13,8 @@ RCT_EXPORT_MODULE(BannerView)
 }
 
 RCT_EXPORT_VIEW_PROPERTY(size, NSString)
-RCT_EXPORT_VIEW_PROPERTY(categoryId, NSString)
-RCT_EXPORT_VIEW_PROPERTY(parameters, NSObject)
+RCT_EXPORT_VIEW_PROPERTY(adUnitId, NSString)
+RCT_EXPORT_VIEW_PROPERTY(parameters, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onError, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLeftApplication, RCTDirectEventBlock)
