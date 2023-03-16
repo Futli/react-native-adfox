@@ -27,7 +27,7 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
   private BannerAdView myAdView;
   private String mAdUnitId;
   private AdSize mSize;
-  private Object parameters;
+  private Object mParameters;
   private RCTEventEmitter mEventEmitter;
 
   public BannerView(ThemedReactContext context) {
