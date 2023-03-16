@@ -6,7 +6,7 @@ import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
@@ -46,17 +46,17 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
   }
 
   public void setParameters(ReadableMap parameters) {
-    Map<String, String> mParameters = new HashMap<>();
+     mParameters = new HashMap<String, String>();
+    if(parameters == null) {
+      return;
+    }
+   
     ReadableMapKeySetIterator iterator = parameters.keySetIterator();
+
     while (iterator.hasNextKey()) {
     String key = iterator.nextKey();
+
     switch (parameters.getType(key)) {
-      case Null:
-        mParameters.put(key, null);
-        break;
-      case Boolean:
-        mParameters.put(key, String.valueOf(parameters.getBoolean(key)));
-        break;
       case Number:
         mParameters.put(key, String.valueOf(parameters.getDouble(key)));
         break;
@@ -66,33 +66,30 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
       default:
         throw new IllegalArgumentException("Could not convert object with key: " + key + ".");
     }
-    System.out.println(mParameters);
     createAdViewIfCan();
   }
   }
-  
 
   public void setSize(AdSize size) {
     mSize = size;
     createAdViewIfCan();
   }
 
-  private void createAdViewIfCan() {
-    if (myAdView == null && mAdUnitId != null && mSize != null) {
+  public void createAdViewIfCan() {
+    if (myAdView == null && mAdUnitId != null && mSize != null && mParameters != null) {
       this.myAdView = new BannerAdView(getContext());
 
       myAdView.setAdUnitId(mAdUnitId);
       myAdView.setAdSize(mSize);
-      System.out.println(mParameters);
-      // Код из интерфейса Adfox для работы с прямыми кампаниями.
-
-      // Создание объекта таргетирования рекламы.
-      final AdRequest adRequest = new AdRequest.Builder().setParameters(mParameters).build();
-
-      // Регистрация слушателя для отслеживания событий, происходящих в баннерной рекламе.
       myAdView.setBannerAdEventListener(this);
+      AdRequest adRequest = null;
+      
+      if (mParameters.size() > 0) {
+        adRequest = new AdRequest.Builder().setParameters(mParameters).build();
+      } else {
+        adRequest = new AdRequest.Builder().build();
+      }
 
-      // Загрузка объявления.
       myAdView.loadAd(adRequest);
     }
   }
