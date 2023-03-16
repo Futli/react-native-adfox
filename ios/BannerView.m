@@ -31,7 +31,7 @@
 
 - (void)createViewIfCan
 {
-    if (!_adUnitId && !_parameters) {
+    if (!_adUnitId || !_size) {
         return;
     }
 
