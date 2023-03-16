@@ -7,6 +7,7 @@ import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.yandex.mobile.ads.banner.AdSize;
+import com.facebook.react.bridge.ReadableMap;
 
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class BannerViewManager extends SimpleViewManager<BannerView> {
   }
 
   @ReactProp(name = "parameters")
-  public void setParameters(BannerView view, Object parameters) {
+  public void setParameters(BannerView view, ReadableMap parameters) {
     view.setParameters(parameters);
   }
 

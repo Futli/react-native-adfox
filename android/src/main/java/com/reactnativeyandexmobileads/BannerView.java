@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -20,6 +21,8 @@ import com.yandex.mobile.ads.banner.BannerAdView;
 import com.yandex.mobile.ads.common.AdRequest;
 import com.yandex.mobile.ads.common.AdRequestError;
 import com.yandex.mobile.ads.common.ImpressionData;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BannerView extends ReactViewGroup implements BannerAdEventListener, LifecycleEventListener {
@@ -27,7 +30,7 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
   private BannerAdView myAdView;
   private String mAdUnitId;
   private AdSize mSize;
-  private Object mParameters;
+  private Map<String, String> mParameters;
   private RCTEventEmitter mEventEmitter;
 
   public BannerView(ThemedReactContext context) {
@@ -42,9 +45,30 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
     createAdViewIfCan();
   }
 
-  public void setParameters(Object parameters) {
-    mParameters = parameters;
+  public void setParameters(ReadableMap parameters) {
+    Map<String, String> mParameters = new HashMap<>();
+    ReadableMapKeySetIterator iterator = parameters.keySetIterator();
+    while (iterator.hasNextKey()) {
+    String key = iterator.nextKey();
+    switch (parameters.getType(key)) {
+      case Null:
+        mParameters.put(key, null);
+        break;
+      case Boolean:
+        mParameters.put(key, String.valueOf(parameters.getBoolean(key)));
+        break;
+      case Number:
+        mParameters.put(key, String.valueOf(parameters.getDouble(key)));
+        break;
+      case String:
+        mParameters.put(key, parameters.getString(key));
+        break;
+      default:
+        throw new IllegalArgumentException("Could not convert object with key: " + key + ".");
+    }
+    System.out.println(mParameters);
     createAdViewIfCan();
+  }
   }
   
 
@@ -59,11 +83,11 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
 
       myAdView.setAdUnitId(mAdUnitId);
       myAdView.setAdSize(mSize);
-
+      System.out.println(mParameters);
       // Код из интерфейса Adfox для работы с прямыми кампаниями.
 
       // Создание объекта таргетирования рекламы.
-      final AdRequest adRequest = AdRequest.builder().withParameters(mParameters).build();
+      final AdRequest adRequest = new AdRequest.Builder().setParameters(mParameters).build();
 
       // Регистрация слушателя для отслеживания событий, происходящих в баннерной рекламе.
       myAdView.setBannerAdEventListener(this);
