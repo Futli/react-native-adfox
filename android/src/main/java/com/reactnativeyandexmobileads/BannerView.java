@@ -47,6 +47,7 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
 
   public void setParameters(ReadableMap parameters) {
      mParameters = new HashMap<String, String>();
+
     if(parameters == null) {
       return;
     }
@@ -75,7 +76,7 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
     createAdViewIfCan();
   }
 
-  public void createAdViewIfCan() {
+  private void createAdViewIfCan() {
     if (myAdView == null && mAdUnitId != null && mSize != null && mParameters != null) {
       this.myAdView = new BannerAdView(getContext());
 
