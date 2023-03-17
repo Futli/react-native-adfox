@@ -67,8 +67,9 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
       default:
         throw new IllegalArgumentException("Could not convert object with key: " + key + ".");
     }
-    createAdViewIfCan();
+    
   }
+  createAdViewIfCan();
   }
 
   public void setSize(AdSize size) {
@@ -83,13 +84,9 @@ public class BannerView extends ReactViewGroup implements BannerAdEventListener,
       myAdView.setAdUnitId(mAdUnitId);
       myAdView.setAdSize(mSize);
       myAdView.setBannerAdEventListener(this);
-      AdRequest adRequest = null;
       
-      if (mParameters.size() > 0) {
-        adRequest = new AdRequest.Builder().setParameters(mParameters).build();
-      } else {
-        adRequest = new AdRequest.Builder().build();
-      }
+      final AdRequest adRequest = new AdRequest.Builder().setParameters(mParameters).build();
+      
 
       myAdView.loadAd(adRequest);
     }
