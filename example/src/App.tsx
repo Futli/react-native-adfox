@@ -29,7 +29,7 @@ export default class ExampleAd extends Component {
           <Button
             title={'Interstitial Ad'}
             onPress={() => {
-              InterstitialAdManager.showAd('R-M-DEMO-interstitial')
+              InterstitialAdManager.showAd('R-M-DEMO-interstitial', {})
                 .then((didClick: boolean) => {
                   console.log('clicked: ' + didClick);
                 })

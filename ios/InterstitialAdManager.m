@@ -28,7 +28,8 @@ RCT_EXPORT_MODULE(InterstitialAdManager)
 }
 
 RCT_EXPORT_METHOD(
-                  showAd:(NSString *)adUnitId
+                  showAd: (NSString *)adUnitId parameters:(NSDictionary *)parameters
+
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   )
@@ -39,11 +40,14 @@ RCT_EXPORT_METHOD(
     _resolve = resolve;
     _reject = reject;
 
+    YMAMutableAdRequest *request = [[YMAMutableAdRequest alloc] init];
+    request.parameters = parameters;
+
     _interstitialAd = [[YMAInterstitialAd alloc] initWithAdUnitID:adUnitId];
     _interstitialAd.delegate = self;
     _showWhenLoaded = true;
 
-    [self->_interstitialAd load];
+    [self->_interstitialAd loadWithRequest:request];
 
 }
 
