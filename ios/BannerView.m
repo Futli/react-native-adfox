@@ -72,8 +72,8 @@
         return YMAAdSizeBanner_320x100;
     } else if ([size isEqualToString:@"BANNER_300x250"]) {
         return YMAAdSizeBanner_300x250;
-    } else if ([size isEqualToString:@"BANNER_400x240"]) {
-        return YMAAdSizeBanner_400x240;
+    } else if ([size isEqualToString:@"BANNER_240x400"]) {
+        return YMAAdSizeBanner_240x400;
     } else if ([size isEqualToString:@"BANNER_728x90"]) {
         return YMAAdSizeBanner_728x90;
     }

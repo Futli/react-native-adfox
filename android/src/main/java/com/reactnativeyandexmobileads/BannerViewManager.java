@@ -39,8 +39,8 @@ public class BannerViewManager extends SimpleViewManager<BannerView> {
       case "BANNER_320x100":
         adSize = AdSize.BANNER_320x100;
         break;
-      case "BANNER_400x240":
-        adSize = AdSize.BANNER_400x240;
+      case "BANNER_240x400":
+        adSize = AdSize.BANNER_240x400;
         break;
       case "BANNER_728x90":
         adSize = AdSize.BANNER_728x90;
