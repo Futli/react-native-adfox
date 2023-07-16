@@ -1,6 +1,7 @@
 # react-native-adfox
 
 Implementation Yandex Mobile Ads SDK for react native
+forked from https://github.com/vtr0n/react-native-yandex-mobile-ads
 
 ## Installation
 
